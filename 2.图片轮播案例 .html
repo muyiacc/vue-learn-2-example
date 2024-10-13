@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2.图片轮播案例 </title>
+</head>
+
+<body>
+    <!-- 实现图片轮播 -->
+    <!-- 点击按钮切换 -->
+    <div id="app">
+        <h2>{{ number }}</h2>
+        <!-- <img src="./images/1.jpg"> <br> -->
+        <img :src=`./images/${number}.jpg` style="width: 100px; height: 100px;"> <br>
+        <button @click="next">下一张</button> <br>
+        <button @click="prev">上一张</button> <br>
+
+        <ul v-for="(value,index) in 5" :key="index">
+            <li>
+                <a href="#" @click="jump(value)">{{value}}</a>
+            </li>
+        </ul>
+    </div>
+
+    <script type="module">
+        import { createApp, ref } from './js/vue.esm-browser.js'
+
+        createApp({
+            setup() {
+                const number = ref(1)
+
+                // 下一张
+                const next = () => {
+                    // number = number + 1
+                    number.value++
+
+                    if (number.value > 5) {
+                        number.value = 1
+                    }
+                }
+
+                // 上一张
+                const prev = () => {
+                    number.value--
+
+                    if (number.value < 1) {
+                        number.value = 5
+                    }
+                }
+
+                // 跳转到指定
+                const jump = (value) => {
+                    number.value = value
+                    console.log(number.value)
+                }
+
+                return {
+                    number,
+                    next,
+                    prev,
+                    jump
+                }
+            }
+        }).mount("#app")
+    </script>
+</body>
+
+</html>
